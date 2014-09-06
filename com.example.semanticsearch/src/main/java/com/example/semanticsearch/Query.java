@@ -1,10 +1,31 @@
+/**
+ * Author : Aman Gupta
+ * Email Id : aman.tit10@gmail.com
+ * Project : Semantic Search over XML Documents.
+ */
+
 package com.example.semanticsearch;
 
+/**
+ * @author Aman Gupta (aman.tit10@gmail.com)
+ * @version 1.0
+ */
 public class Query {
 
-	private String query; // Used to Store the query
-	private QueryTerm array[]; // Used to Store QueryTerm Array
-	private static int count = 0; // Used to Store the numbers of Queries
+	/**
+	 * Used to Store the query.
+	 */
+	private String query;
+
+	/**
+	 * Used to Store QueryTerm Array.
+	 */
+	private QueryTerm array[];
+
+	/**
+	 * Used to Store the numbers of Queries.
+	 */
+	private static int count = 0;
 
 	public Query(String query) {
 		this.query = query;
@@ -12,8 +33,10 @@ public class Query {
 		processQuery();
 	}
 
-	private void setQueryCount() // Used to count the number of Queries
-	{
+	/**
+	 * Used to count the number of Queries.
+	 */
+	private void setQueryCount() {
 		int p = -1;
 		do {
 			p = query.indexOf(',', p + 1);
@@ -21,8 +44,10 @@ public class Query {
 		} while (p != -1);
 	}
 
-	private void processQuery() // Used to divide Query in QueryTerms
-	{
+	/**
+	 * Used to divide Query in QueryTerms.
+	 */
+	private void processQuery() {
 		array = new QueryTerm[count];
 		char target[];
 		for (int i = 0, p = -1, q; i < count; i++) {
@@ -39,9 +64,10 @@ public class Query {
 		}
 	}
 
-	public void printQueryTerms() // Used to print all the Query Terms(Can be
-									// Deleted)
-	{
+	/**
+	 * Used to print all the Query Terms(Can be Deleted).
+	 */
+	public void printQueryTerms() {
 		for (int i = 0; i < count; i++) {
 			System.out.println("Query " + (i + 1) + "=" + array[i]);
 		}
@@ -51,8 +77,12 @@ public class Query {
 		return array;
 	}
 
-	public static int getQueryCount() // Used to return number of Query Terms
-	{
+	/**
+	 * Used to return number of Query Terms.
+	 * 
+	 * @return Query Count
+	 */
+	public static int getQueryCount() {
 		return count;
 	}
 }

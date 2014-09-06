@@ -1,3 +1,9 @@
+/**
+ * Author : Aman Gupta
+ * Email Id : aman.tit10@gmail.com
+ * Project : Semantic Search over XML Documents.
+ */
+
 package com.example.semanticsearch;
 
 import java.io.IOException;
@@ -17,8 +23,11 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import org.apache.xerces.parsers.SAXParser;
-
+/**
+ * @author Aman Gupta (aman.tit10@gmail.com)
+ * @version 1.0
+ */
+@SuppressWarnings("unused")
 public class SemanticSearch implements ContentHandler, QueryTermTypes,
 		ErrorHandler {
 
@@ -26,14 +35,20 @@ public class SemanticSearch implements ContentHandler, QueryTermTypes,
 	private Query query;
 	private String documentStreamUri[];
 	private QueryTerm array[];
-	@SuppressWarnings("unused")
 	private Locator locator;
 	private Map<String, String> namespaceMappings = new HashMap<>();
 	private Stack<ProcessingNode> stack;
 	private Vector<ResultNode> resultSet = new Vector<>();
 
-	// Constructor is Used to register XMLReader,Content Handler,Error Handler
-	// Initialize Query,QueryTerm Array,Document Stream URI
+	/**
+	 * Constructor is Used to register XMLReader,Content Handler,Error Handler.
+	 * Initialize Query,QueryTerm Array,Document Stream URI.
+	 * 
+	 * @param query
+	 * @param documentStreamUri
+	 * @throws SAXException
+	 * @throws IOException
+	 */
 	public SemanticSearch(Query query, String documentStreamUri[])
 			throws SAXException, IOException {
 		this.documentStreamUri = documentStreamUri;
@@ -48,10 +63,12 @@ public class SemanticSearch implements ContentHandler, QueryTermTypes,
 		}
 	}
 
+	/**
+	 * Used to Receive Contents between two Elements i.e.
+	 * <Element>Content</Element> Compares TYPE2,TYPE3,TYPE4 Query Term with
+	 * Contents.
+	 */
 	@Override
-	// Used to Receive Contents between two Elements i.e.
-	// <Element>Content</Element>
-	// Compares TYPE2,TYPE3,TYPE4 Query Term with Contents
 	public void characters(char ch[], int start, int length)
 			throws SAXException {
 		String data = new String(ch, start, length);
@@ -78,15 +95,18 @@ public class SemanticSearch implements ContentHandler, QueryTermTypes,
 		}
 	}
 
+	/**
+	 * Prints the ending of Documents/
+	 */
 	@Override
-	// Prints the ending of Documents
 	public void endDocument() throws SAXException {
 		System.out.println("Document Ending");
 	}
 
+	/**
+	 * Invoked when Element ends. Put ProcessedNode in ResultNode.
+	 */
 	@Override
-	// Invoked when Element ends
-	// Put ProcessedNode in ResultNode
 	public void endElement(String namespaceUri, String localName, String qName)
 			throws SAXException {
 		ProcessingNode node = stack.pop();
@@ -142,17 +162,22 @@ public class SemanticSearch implements ContentHandler, QueryTermTypes,
 	public void skippedEntity(String name) throws SAXException {
 	}
 
+	/**
+	 * Prints the starting of Documents.
+	 */
 	@Override
-	// Prints the starting of Documents
 	public void startDocument() throws SAXException {
 		System.out.println("Document Starting");
 		stack = new Stack<>();
 	}
 
+	/**
+	 * 
+	 * Invoked when Elements starts. Compares TYPE2,TYPE4 Query Terms with
+	 * Elements(Labels). Compares TYPE1,TYPE2,TYPE3,TYPE4 with Attributes Names
+	 * and Values.
+	 */
 	@Override
-	// Invoked when Elements starts
-	// Compares TYPE2,TYPE4 Query Terms with Elements(Labels)
-	// Compares TYPE1,TYPE2,TYPE3,TYPE4 with Attributes Names and Values
 	public void startElement(String namespaceUri, String localName,
 			String qName, Attributes atts) throws SAXException {
 		if (namespaceUri.length() > 0) {
@@ -216,7 +241,9 @@ public class SemanticSearch implements ContentHandler, QueryTermTypes,
 		namespaceMappings.put(prefix, uri);
 	}
 
-	// Prints the Result Vector
+	/**
+	 * Prints the Result Vector.
+	 */
 	public void printResultSet() {
 		System.out.println("Result :");
 		for (int i = 0; i < resultSet.size(); i++) {
@@ -225,10 +252,11 @@ public class SemanticSearch implements ContentHandler, QueryTermTypes,
 
 	}
 
+	/**
+	 * Invoked when error occurs. These Error will not stop parsing process. To
+	 * do so Remove "throw new SAXException(Message);"
+	 */
 	@Override
-	// Invoked when error occurs
-	// These Error will not stop parsing process
-	// To do so Remove "throw new SAXExceptio(Message);"
 	public void error(SAXParseException exception) throws SAXException {
 		int columnNo = exception.getColumnNumber();
 		int lineNo = exception.getLineNumber();
@@ -241,9 +269,10 @@ public class SemanticSearch implements ContentHandler, QueryTermTypes,
 		throw new SAXException(Message);
 	}
 
+	/**
+	 * Invoked when Fatal Error Occurs. These Errors will stop Parsing Process.
+	 */
 	@Override
-	// Invoked when Fatal Error Occurs
-	// These Errors will stop Parsing Process
 	public void fatalError(SAXParseException exception) throws SAXException {
 		int columnNo = exception.getColumnNumber();
 		int lineNo = exception.getLineNumber();
@@ -257,9 +286,11 @@ public class SemanticSearch implements ContentHandler, QueryTermTypes,
 	}
 
 	@Override
-	// Invoked when warning arises
-	// These Warning will not stop parsing process
-	// To do so Remove "throw new SAXExceptio(Message);"
+	/**
+	 * Invoked when warning arises.
+	 * These Warning will not stop parsing process.
+	 * To do so Remove "throw new SAXException(Message);".
+	 */
 	public void warning(SAXParseException exception) throws SAXException {
 		int columnNo = exception.getColumnNumber();
 		int lineNo = exception.getLineNumber();

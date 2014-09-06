@@ -1,12 +1,24 @@
+/**
+ * Author : Aman Gupta
+ * Email Id : aman.tit10@gmail.com
+ * Project : Semantic Search over XML Documents.
+ */
+
 package com.example.semanticsearch;
 
+/**
+ * @author Aman Gupta (aman.tit10@gmail.com)
+ * @version 1.0
+ */
 public class QueryTerm implements QueryTermTypes {
 
 	private String queryTerm, label, token;
 	private int queryTermType;
 
-	private void divideQueryTerm() // Used to divide Query Term in Label and
-									// Token
+	/**
+	 * Used to divide Query Term in Label and Token
+	 */
+	private void divideQueryTerm() //
 	{
 		char target[];
 		int p = queryTerm.indexOf("::", 0);
@@ -36,6 +48,7 @@ public class QueryTerm implements QueryTermTypes {
 			token = new String(target);
 			queryTermType = TYPE1;
 		}
+
 		label = label.trim();
 		token = token.trim();
 		label = label.toLowerCase();
@@ -47,23 +60,37 @@ public class QueryTerm implements QueryTermTypes {
 		divideQueryTerm();
 	}
 
-	public String toString() // Returns the Query Term
-	{
+	/**
+	 * Returns the Query Term.
+	 */
+	public String toString() {
 		return queryTerm;
 	}
 
-	public int getQueryTermType() // Returns the Query Term Type
-	{
+	/**
+	 * Returns the Query Term Type.
+	 * 
+	 * @return Query Term Type
+	 */
+	public int getQueryTermType() {
 		return queryTermType;
 	}
 
-	public String getLabel() // Returns the Label
-	{
+	/**
+	 * Returns the Label.
+	 * 
+	 * @return Label
+	 */
+	public String getLabel() {
 		return label;
 	}
 
-	public String getToken() // Returns the Token
-	{
+	/**
+	 * Returns the Token.
+	 * 
+	 * @return Token
+	 */
+	public String getToken() {
 		return token;
 	}
 }

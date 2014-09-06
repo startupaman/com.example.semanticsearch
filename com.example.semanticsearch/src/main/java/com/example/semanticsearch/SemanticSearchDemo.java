@@ -1,3 +1,9 @@
+/**
+ * Author : Aman Gupta
+ * Email Id : aman.tit10@gmail.com
+ * Project : Semantic Search over XML Documents.
+ */
+
 package com.example.semanticsearch;
 
 import java.io.IOException;
@@ -5,6 +11,10 @@ import java.util.Scanner;
 
 import org.xml.sax.SAXException;
 
+/**
+ * @author Aman Gupta (aman.tit10@gmail.com)
+ * @version 1.0
+ */
 public class SemanticSearchDemo implements QueryTermTypes {
 
 	/**
@@ -13,7 +23,9 @@ public class SemanticSearchDemo implements QueryTermTypes {
 	 * @throws SAXException
 	 */
 	public static void main(String[] args) throws SAXException, IOException {
+		Scanner scanner = null;
 		try {
+
 			// Stream of Documents to be Supplied
 			String documentStreamUri[] = {
 			// Supply Document Streams Here
@@ -24,26 +36,29 @@ public class SemanticSearchDemo implements QueryTermTypes {
 			"D:\\Aman\\MARS\\Programming\\JAVA\\workspace\\XMLExamples\\GolfCountryClub\\golfcountryclub.xml" };
 
 			// Taking Query Input
-			Scanner kb = new Scanner(System.in);
+			scanner = new Scanner(System.in);
 			System.out.println("\t\t\t\tSemantic Search");
 			System.out
 					.println("Enter Query in the form of label::token(Seperated by ',') :");
-			String input = kb.nextLine();
+			String input = scanner.nextLine();
 
 			// Query Object Creation
 			Query query = new Query(input);
 
 			// SemanticSearch Object Creation
-
 			SemanticSearch semanticSearch = new SemanticSearch(query,
 					documentStreamUri);
+
 			semanticSearch.printResultSet();
+
 		} catch (SAXException exception) {
 			System.out.println("Exception :" + exception);
 		} catch (IOException exception) {
 			System.out.println("Exception :" + exception);
 		} catch (Exception exception) {
 			System.out.println("Exception :" + exception);
+		} finally {
+			scanner.close();
 		}
 
 	}
